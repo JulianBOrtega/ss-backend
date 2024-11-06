@@ -5,11 +5,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SS Backend</title>
+    <link rel="icon" type="image/png" href="/img/icon.png" />
     <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
     <img src="img/ss-banner-nobg.png" alt="ss-banner">
     <h1>SS Extension Backend</h1>
     <p>Simple as fuck trash because I don't have time for backend</p>
+    
+    <br>
+    
+    <h2 class="endpointTitle">Characters</h2> <hr>
+    <section>
+        <a target="blank" href="/characters" class="endpoints get"><b>GET</b> /characters</a>
+        <p class="detail">Get all the characters from existent campaigns</p>
+
+        <a target="blank" href="/characters/0" class="endpoints get"><b>GET</b> /characters/${<span>campaign</span>}</a>
+        <p class="detail">Get all characters from a campaign</p>
+        <p class="params">${campaign} = campaign ID that contains the character</p>
+        
+        <a target="blank" href="/characters/0/0" class="endpoints get"><b>GET</b> /characters/${<span>campaign</span>}/${<span>character</span>}</a>
+        <p class="detail">Get a single character from a campaign</p>
+        <p class="params">${campaign} = campaign ID that contains the character</p>
+        <p class="params">${character} = The ID of the character you want to get</p>
+        
+        <a target="blank" class="endpoints post"><b>POST</b> /characters/${<span>campaign</span>}</a>
+        <p class="detail">Add or updates a character. If character already contains an ID, it updates the character with that ID. Otherwise, it generates one and returns the character with it</p>
+        <p class="params"><b>BODY</b>: Character to be added/updated. Interface TBD</p>
+        <p class="params">${campaign} = campaign ID that will contain the character</p>
+        
+        <a target="blank" class="endpoints delete"><b>DELETE</b> /characters?campaignId=${<span class="optional">optional</span>}&characterId=${<span class="obligatory">obligatory</span>}</a>
+        <p class="detail">Deletes a character from a campaign. If a campaignId is not introduced, then it deletes all characters with that ID from every campaign</p>
+        <p class="params">${campaignId} = campaign ID that contains the character</p>
+        <p class="params">${characterId} = The ID of the character you want to delete</p>
+    </section>
+
 </body>
 </html>

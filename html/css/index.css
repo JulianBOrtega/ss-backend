@@ -7,6 +7,53 @@ body {
 h1 {
     color: white;
 }
+h2 {
+    text-align: left;
+    color: white;
+}
 p {
     color: rgb(215, 215, 255);
+    margin: 0;
+}
+span {
+    color: white;
+}
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.endpointTitle {
+    margin-bottom: 10px;
+}
+.endpoints {
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+.get {
+    color: cyan;
+}
+.post {
+    color: greenyellow;
+}
+.delete {
+    color: orangered;
+}
+.optional {
+    font-style: italic;
+}
+.obligatory {
+    font-weight: bold;
+}
+.detail {
+    color: white;
+    font-size: 14px;
+}
+.params {
+    color: gray;
+    font-size: 12px;
+    margin-left: 15px;
+    margin-top: 3px;
 }

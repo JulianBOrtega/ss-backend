@@ -1,5 +1,5 @@
 const indexRoutes = require('./routes/index');
-const itemsRoutes = require('./routes/items');
+const characterRoutes = require('./routes/characters');
 const express = require('express');
 const path = require('path');
 
@@ -15,7 +15,7 @@ app.use(express.json());
 
 //? Routes
 app.use('/', indexRoutes);
-app.use('/', itemsRoutes);
+app.use('/characters', characterRoutes);
 
 //? Start the server
 app.listen(port, () => {
