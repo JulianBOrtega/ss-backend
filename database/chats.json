@@ -1,0 +1,12 @@
+[
+  {
+    "campaignId": 0,
+    "chats": [
+      {
+        "id": 0,
+        "userId": 0,
+        "msg": "this is a msg"
+      }
+    ]
+  }
+]

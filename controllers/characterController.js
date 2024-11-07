@@ -10,9 +10,12 @@ const getAllCharacters = async (req, res) => {
 const getCharacters = async (req, res) => {
     const campaignId = req.params.campaign;
     
-    if (!campaignId && campaignId != 0) res.status(400).json({ 
-        error: 'Introduce a campaign id to extract the characters from, or use /getAllCharacters' 
-    });
+    if (!campaignId && campaignId != 0) {
+        res.status(400).json({ 
+            error: 'Introduce a campaign id to extract the characters from' 
+        });
+        return;
+    }
     
     const characters = await readFileSync('characters.json');
     const campaign = characters.find(list => list.campaignId == campaignId);
@@ -29,15 +32,19 @@ const getCharacter = async (req, res) => {
     const campaignId = req.params.campaign;
     const characterId = req.params.character;
 
-    if ((!campaignId && campaignId != 0) || (!characterId && characterIdId != 0))
+    if ((!campaignId && campaignId != 0) || (!characterId && characterIdId != 0)) {
         res.status(400).json({
             error: 'Introduce a campaign and character ID'
-    });
+        });
+
+        return;
+    }
     
     const characters = await readFileSync('characters.json');
     const campaign = characters.find(list => list.campaignId == campaignId);
     if(!campaign) {
         res.status(404).json({ error: 'Campaign not found'});
+        return;
     }
 
     const item = campaign.characters.find(camp => camp.id == characterId);
@@ -55,16 +62,24 @@ const addCharacter = async (req, res) => {
     const campaignId = req.params.campaign;
     const newItem = req.body;
     
-    if ((!campaignId && campaignId != 0) || !newItem)
+    if ((!campaignId && campaignId != 0) || !newItem) {
         res.status(400).json({
             error: 'Introduce campaign ID and a new character'
-    });
+        });
+
+        return;
+    }
     
     const characters = await readFileSync('characters.json');
-    const campaign = characters.find(list => list.campaignId == campaignId);
+    let campaign = characters.find(list => list.campaignId == campaignId);
     if(!campaign) {
-        res.status(404).json({error: 'Campaign not found'});
-    };
+        characters.push({
+         campaignId: +campaignId,
+         characters: []
+        });
+ 
+        campaign = characters[characters.length - 1];
+     };
     
     let copyIndex = -1;
     if(newItem.id || newItem.id == 0) {
@@ -95,15 +110,18 @@ const addCharacter = async (req, res) => {
 const removeCharacter = async (req, res) => {
     const { campaignId, characterId } = req.query;
 
-    if (!characterId && characterIdId != 0)
+    if (!characterId && characterId != 0) {
         res.status(400).json({
-            error: 'Introduce a campaign and character ID'
-    });
+            error: 'Introduce a character ID'
+        });
+        
+        return;
+    }
 
     let characters = await readFileSync('characters.json');
     const campaign = characters.find(list => list.campaignId == campaignId);
-    
-    if(!campaign) {
+
+    if(!campaignId && campaignId != 0) {
         characters = characters.map(camp => {
             return {
                 ...camp,
@@ -111,6 +129,14 @@ const removeCharacter = async (req, res) => {
             };
         });
     } else {
+        if(!campaign) {
+            res.status(404).json({
+                error: 'Cannot find campaign with the introduced ID'
+            });
+            
+            return;
+        }
+
         campaign.characters = campaign.characters.filter(
             c => c.id != characterId
         );
