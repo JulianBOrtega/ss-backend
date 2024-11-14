@@ -1,11 +1,195 @@
 [
   {
-    "campaignId": 0,
+    "campaignId": "0",
     "chats": [
       {
         "id": 0,
         "userId": 0,
         "msg": "this is a msg"
+      }
+    ]
+  },
+  {
+    "campaignId": "a3db8cba12d00d4fc8c1c526053e33ce1398755798ca316d0175f24c1f1e99b6",
+    "chats": [
+      {
+        "id": "m3f5v2odjlrxb67hy9",
+        "userId": "a79760ce-fb8a-4582-86ec-8a1805e7d794",
+        "characterId": "m3dqxdotadn63zo7sl",
+        "msg": "test",
+        "isWhisper": false
+      },
+      {
+        "id": "m3f5v5ob9v8hyfra8va",
+        "userId": "a79760ce-fb8a-4582-86ec-8a1805e7d794",
+        "characterId": "m3dqxdotadn63zo7sl",
+        "msg": "asd",
+        "isWhisper": false
+      },
+      {
+        "id": "m3go0j21lel7s0v75ok",
+        "userId": "a9048f5f-0420-495e-aa68-dd5fc9c3fd8d",
+        "characterId": "m3glzmqki9utt20wxp",
+        "msg": "sex",
+        "isWhisper": false
+      },
+      {
+        "id": "m3gvsj5wrc6ut5i71zr",
+        "userId": "a9048f5f-0420-495e-aa68-dd5fc9c3fd8d",
+        "characterId": "m3grzb4rh3b2h6tlfoq",
+        "msg": "Super tetas gordas usó Fuerza",
+        "rollResult": "2d10+5: [6, 5]+5 = 16",
+        "isWhisper": false
+      },
+      {
+        "id": "m3gvsrqyk37ic4v7vam",
+        "userId": "a9048f5f-0420-495e-aa68-dd5fc9c3fd8d",
+        "characterId": "m3grzb4rh3b2h6tlfoq",
+        "msg": "Super tetas gordas usó Inteligencia",
+        "rollResult": "2d10+1: [6, 10]+1 = 17",
+        "isWhisper": false
+      },
+      {
+        "id": "m3gw0fuqwx948y627ub",
+        "userId": "a9048f5f-0420-495e-aa68-dd5fc9c3fd8d",
+        "characterId": "m3grzb4rh3b2h6tlfoq",
+        "msg": "Super tetas gordas causa daño!",
+        "rollResult": "1d4: [1] = 1",
+        "isWhisper": false
+      },
+      {
+        "id": "m3htn4t14jx12jvr05w",
+        "userId": "a9048f5f-0420-495e-aa68-dd5fc9c3fd8d",
+        "characterId": "m3ht85qxlz8hgwke1dh",
+        "msg": "Introducir nombre causa daño!",
+        "rollResult": "1d4: [3] = 3",
+        "isWhisper": false
+      },
+      {
+        "id": "m3hv67twufho6b8r99q",
+        "userId": "a9048f5f-0420-495e-aa68-dd5fc9c3fd8d",
+        "characterId": "m3hv5sl9lud5z30liqc",
+        "msg": "Tetas gordas causa daño!",
+        "rollResult": "1d4: [4] = 4",
+        "isWhisper": false
+      },
+      {
+        "id": "m3hvkdq9n9uch8hwghc",
+        "userId": "a9048f5f-0420-495e-aa68-dd5fc9c3fd8d",
+        "characterId": "m3hv5sl9lud5z30liqc",
+        "msg": "Sexo",
+        "isWhisper": false
+      },
+      {
+        "id": "m3hw4pmepzq64smfywc",
+        "userId": "a9048f5f-0420-495e-aa68-dd5fc9c3fd8d",
+        "characterId": "m3hv5sl9lud5z30liqc",
+        "msg": "a",
+        "isWhisper": false
+      },
+      {
+        "id": "m3hw4ro2vuezy6phkb",
+        "userId": "a9048f5f-0420-495e-aa68-dd5fc9c3fd8d",
+        "characterId": "m3hv5sl9lud5z30liqc",
+        "msg": "a.",
+        "isWhisper": false
+      },
+      {
+        "id": "m3hw4t8ipz492cmothd",
+        "userId": "a9048f5f-0420-495e-aa68-dd5fc9c3fd8d",
+        "characterId": "m3hv5sl9lud5z30liqc",
+        "msg": "a",
+        "isWhisper": false
+      },
+      {
+        "id": "m3hw9c6fl0p3ujinsi",
+        "userId": "a9048f5f-0420-495e-aa68-dd5fc9c3fd8d",
+        "characterId": "m3hv5sl9lud5z30liqc",
+        "msg": "Sexo",
+        "isWhisper": false
+      },
+      {
+        "id": "m3hwese1rwrkvnkuzvs",
+        "userId": "a9048f5f-0420-495e-aa68-dd5fc9c3fd8d",
+        "characterId": "m3hv5sl9lud5z30liqc",
+        "msg": "dasdasd ad kd askd lñadklñasd a dladlkadasldñasdlñkasldñkaslñdasñdald",
+        "isWhisper": false
+      },
+      {
+        "id": "m3hwewgmtze936oq4vf",
+        "userId": "a9048f5f-0420-495e-aa68-dd5fc9c3fd8d",
+        "characterId": "m3hv5sl9lud5z30liqc",
+        "msg": "ds da dkadasjd asdajsdads a da daj dakl dajkdas dasjkdaskda",
+        "isWhisper": false
+      },
+      {
+        "id": "m3hwf0h3ti12y93d8ol",
+        "userId": "a9048f5f-0420-495e-aa68-dd5fc9c3fd8d",
+        "characterId": "m3hv5sl9lud5z30liqc",
+        "msg": "a a a a aa a a a aa a a a aa a a a aa a a a aa a a a aa a a a aa a a a aa a a a aa a a a a",
+        "isWhisper": false
+      },
+      {
+        "id": "m3hwzaq35aewk5b2i4d",
+        "userId": "a9048f5f-0420-495e-aa68-dd5fc9c3fd8d",
+        "characterId": "m3hv5sl9lud5z30liqc",
+        "msg": "Tetas gordas usó Inteligencia",
+        "rollResult": "2d10+0: [6, 8]+0 = 14",
+        "isWhisper": false
+      },
+      {
+        "id": "m3hx2yh3tfdhjovzq3i",
+        "userId": "a9048f5f-0420-495e-aa68-dd5fc9c3fd8d",
+        "characterId": "m3hv5sl9lud5z30liqc",
+        "msg": "Sex",
+        "isWhisper": true
+      },
+      {
+        "id": "m3hxkg2fl7vgupsi69",
+        "userId": "a9048f5f-0420-495e-aa68-dd5fc9c3fd8d",
+        "characterId": "m3hv5sl9lud5z30liqc",
+        "msg": "Tetas gordas causa daño!",
+        "rollResult": "1d4: [4] = 4",
+        "isWhisper": false
+      },
+      {
+        "id": "m3hxmh8m5pe9pxwt6b9",
+        "userId": "a9048f5f-0420-495e-aa68-dd5fc9c3fd8d",
+        "characterId": "m3hv5sl9lud5z30liqc",
+        "msg": "Tetas gordas causa daño!",
+        "rollResult": "1d4: [4] = 4",
+        "isWhisper": false
+      },
+      {
+        "id": "m3hxmhorrfo97ikmcjn",
+        "userId": "a9048f5f-0420-495e-aa68-dd5fc9c3fd8d",
+        "characterId": "m3hv5sl9lud5z30liqc",
+        "msg": "Tetas gordas usó Fuerza",
+        "rollResult": "2d10+0: [8, 3]+0 = 11",
+        "isWhisper": false
+      },
+      {
+        "id": "m3hxmhxhfruz6ggpb35",
+        "userId": "a9048f5f-0420-495e-aa68-dd5fc9c3fd8d",
+        "characterId": "m3hv5sl9lud5z30liqc",
+        "msg": "Tetas gordas usó Destreza",
+        "rollResult": "2d10+0: [10, 10]+0 = 20",
+        "isWhisper": false
+      },
+      {
+        "id": "m3hxmi6b856o9klc9rs",
+        "userId": "a9048f5f-0420-495e-aa68-dd5fc9c3fd8d",
+        "characterId": "m3hv5sl9lud5z30liqc",
+        "msg": "Tetas gordas usó Constitución",
+        "rollResult": "2d10+0: [3, 10]+0 = 13",
+        "isWhisper": false
+      },
+      {
+        "id": "m3hxp9sa2uf5l28uk59",
+        "userId": "a9048f5f-0420-495e-aa68-dd5fc9c3fd8d",
+        "characterId": "m3hv5sl9lud5z30liqc",
+        "msg": "asd",
+        "isWhisper": false
       }
     ]
   }

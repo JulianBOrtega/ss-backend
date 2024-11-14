@@ -1,4 +1,4 @@
-const { readFileSync, writeFileSync } = require('../utility/fileManagement');
+const { readFileSync, writeFileSync, generateID } = require('../utility/fileManagement');
 
 //? Gets all chats
 const getAllChats = async (req, res) => {
@@ -22,7 +22,7 @@ const getChats = async (req, res) => {
     const campaign = chats.find(list => list.campaignId == campaignId);
 
     if (!campaign) {
-        res.status(404).json({ error: 'Campaign not found' });
+        res.json([]);
     } else {
         res.json(campaign.chats);
     }
@@ -47,7 +47,7 @@ const addChat = async (req, res) => {
     
     if(!campaign) {
        chats.push({
-        campaignId: +campaignId,
+        campaignId: campaignId,
         chats: []
        });
 
@@ -60,12 +60,7 @@ const addChat = async (req, res) => {
             chat => chat.id == newItem.id
         );
     } else {
-        let counter = 0;
-        chats.forEach(list => {
-            list.chats.forEach(() => counter++);
-        });
-
-        newItem.id = counter;
+        newItem.id = generateID();
     };
     
     if (copyIndex != -1) {

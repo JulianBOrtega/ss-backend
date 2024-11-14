@@ -1,4 +1,4 @@
-const { readFileSync, writeFileSync } = require('../utility/fileManagement');
+const { readFileSync, writeFileSync, generateID } = require('../utility/fileManagement');
 
 //? Gets all campaigns
 const getAllCampaigns = async (req, res) => {
@@ -38,6 +38,12 @@ const addCampaign = async (req, res) => {
         });
 
         return;
+    } else if (!newItem.id) {
+        res.status(400).json({
+            error: 'Campaign must contain an ID (roomId)'
+        });
+
+        return;
     }
     
     const campaigns = await readFileSync('campaigns.json');
@@ -46,7 +52,8 @@ const addCampaign = async (req, res) => {
     if(newItem.id || newItem.id == 0) {
         copyIndex = campaigns.findIndex(c => c.id == newItem.id);
     } else {
-        newItem.id = campaigns.length;
+        newItem.id = 'WARN' + generateID();
+        console.log('####### WARNING - Item will be added with a provitional ID since one was not received (WARN-id)');
     };
     
     if (copyIndex != -1) {

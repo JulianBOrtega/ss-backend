@@ -1,4 +1,4 @@
-const { readFileSync, writeFileSync } = require('../utility/fileManagement');
+const { readFileSync, writeFileSync, generateID } = require('../utility/fileManagement');
 
 //? Gets all characters
 const getAllCharacters = async (req, res) => {
@@ -21,7 +21,7 @@ const getCharacters = async (req, res) => {
     const campaign = characters.find(list => list.campaignId == campaignId);
 
     if (!campaign) {
-        res.status(404).json({ error: 'Campaign not found' });
+        res.json([]);
     } else {
         res.json(campaign.characters);
     }
@@ -74,7 +74,7 @@ const addCharacter = async (req, res) => {
     let campaign = characters.find(list => list.campaignId == campaignId);
     if(!campaign) {
         characters.push({
-         campaignId: +campaignId,
+         campaignId: campaignId,
          characters: []
         });
  
@@ -87,12 +87,7 @@ const addCharacter = async (req, res) => {
             chara => chara.id == newItem.id
         );
     } else {
-        let counter = 0;
-        characters.forEach(list => {
-            list.characters.forEach(() => counter++);
-        });
-
-        newItem.id = counter;
+        newItem.id = generateID();
     };
     
     if (copyIndex != -1) {
