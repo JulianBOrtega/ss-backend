@@ -190,6 +190,13 @@
         "characterId": "m3hv5sl9lud5z30liqc",
         "msg": "asd",
         "isWhisper": false
+      },
+      {
+        "id": "m3hzewku7kxcd2c9d3k",
+        "userId": "a9048f5f-0420-495e-aa68-dd5fc9c3fd8d",
+        "characterId": "m3hv5sl9lud5z30liqc",
+        "msg": "test",
+        "isWhisper": false
       }
     ]
   }
