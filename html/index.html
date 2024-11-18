@@ -80,6 +80,10 @@
         <p class="detail">Deletes a chat from a campaign. If a campaignId is not introduced, then it deletes all chats with that ID from every campaign</p>
         <p class="params">${campaignId} = campaign ID that contains the chat</p>
         <p class="params">${chatId} = The ID of the chat you want to delete</p>
+
+        <a target="blank" class="endpoints delete"><b>DELETE</b> /chats/clearHistory/${<span>campaign</span>}</a>
+        <p class="detail">Clears the chat history of a campaign.</p>
+        <p class="params">${campaign} = campaign ID of the chat history</p>
     </section>
 </body>
 </html>

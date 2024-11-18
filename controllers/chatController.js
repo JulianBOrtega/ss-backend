@@ -106,9 +106,32 @@ const removeChat = async (req, res) => {
     res.status(200).json({msg: 'Success'});
 }
 
+const clearChatHistory = async (req, res) => {
+    const campaignId = req.params.campaign;
+
+    if (!campaignId && campaignId != 0) {
+        res.status(400).json({ 
+        error: 'Introduce a campaign id to clear the chat from' 
+        });
+
+        return;
+    }
+
+    const chats = await readFileSync('chats.json');
+    let campaignIndex = chats.findIndex(list => list.campaignId == campaignId);
+
+    if(campaignId !== -1) {
+        chats[campaignIndex].chats = [];
+        await writeFileSync('chats.json', chats);
+    }
+
+    res.status(201).json('success');
+}
+
 module.exports = { 
     getAllChats, 
     getChats, 
     addChat, 
-    removeChat 
+    removeChat,
+    clearChatHistory
 };

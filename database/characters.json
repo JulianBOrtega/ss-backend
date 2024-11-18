@@ -1,25 +1,16 @@
 [
   {
-    "campaignId": "0",
-    "characters": [
-      {
-        "id": 0,
-        "name": "Test"
-      }
-    ]
-  },
-  {
     "campaignId": "a3db8cba12d00d4fc8c1c526053e33ce1398755798ca316d0175f24c1f1e99b6",
     "characters": [
       {
-        "id": "m3hv5sl9lud5z30liqc",
+        "id": "m3l94bd3kgvgdcrioc",
         "userId": "a9048f5f-0420-495e-aa68-dd5fc9c3fd8d",
-        "name": "Tetas gordas",
-        "race": "Raza",
-        "classId": 2,
+        "name": "Introducir nombre",
+        "race": "",
+        "classId": 1,
         "level": 1,
         "exp": 0,
-        "hp": 8,
+        "hp": 16,
         "damageDice": "1d4",
         "tempArmor": 0,
         "alignment": "neutral",
