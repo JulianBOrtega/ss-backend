@@ -20,7 +20,7 @@
         <a target="blank" href="/campaigns" class="endpoints get"><b>GET</b> /campaigns</a>
         <p class="detail">Get all campaigns</p>
 
-        <a target="blank" href="/campaigns/0" class="endpoints get"><b>GET</b> /campaigns/${<span>campaign</span>}</a>
+        <a target="blank" class="endpoints get"><b>GET</b> /campaigns/${<span>campaign</span>}</a>
         <p class="detail">Get a single campaign by ID</p>
         <p class="params">${campaign} = campaign ID</p>
         
@@ -40,11 +40,11 @@
         <a target="blank" href="/characters" class="endpoints get"><b>GET</b> /characters</a>
         <p class="detail">Get all the characters from existent campaigns</p>
 
-        <a target="blank" href="/characters/0" class="endpoints get"><b>GET</b> /characters/${<span>campaign</span>}</a>
+        <a target="blank" class="endpoints get"><b>GET</b> /characters/${<span>campaign</span>}</a>
         <p class="detail">Get all characters from a campaign</p>
         <p class="params">${campaign} = campaign ID that contains the character</p>
         
-        <a target="blank" href="/characters/0/0" class="endpoints get"><b>GET</b> /characters/${<span>campaign</span>}/${<span>character</span>}</a>
+        <a target="blank" class="endpoints get"><b>GET</b> /characters/${<span>campaign</span>}/${<span>character</span>}</a>
         <p class="detail">Get a single character from a campaign</p>
         <p class="params">${campaign} = campaign ID that contains the character</p>
         <p class="params">${character} = The ID of the character you want to get</p>
@@ -67,7 +67,7 @@
         <a target="blank" href="/chats" class="endpoints get"><b>GET</b> /chats</a>
         <p class="detail">Get all the chats from existent campaigns</p>
 
-        <a target="blank" href="/chats/0" class="endpoints get"><b>GET</b> /chats/${<span>campaign</span>}</a>
+        <a target="blank" class="endpoints get"><b>GET</b> /chats/${<span>campaign</span>}</a>
         <p class="detail">Get all chats from a campaign</p>
         <p class="params">${campaign} = campaign ID that contains the chat</p>
         
@@ -84,6 +84,24 @@
         <a target="blank" class="endpoints delete"><b>DELETE</b> /chats/clearHistory/${<span>campaign</span>}</a>
         <p class="detail">Clears the chat history of a campaign.</p>
         <p class="params">${campaign} = campaign ID of the chat history</p>
+    </section>
+
+
+    <h2 class="endpointTitle">Backup</h2> <hr>
+    <section>
+        <a target="blank" class="endpoints get"><b>GET</b> /backup/characters/${<span>campaign</span>}</a>
+        <p class="detail">Get the backup information for the characters of the given campaign's ID</p>
+        <p class="params">${campaign} = campaign ID that contains the character</p>
+    
+        <a target="blank" class="endpoints post"><b>POST</b> /backup/characters/${<span>campaign</span>}</a>
+        <p class="detail">Set the backup information for the characters of the given campaign's ID</p>
+        <p class="params"><b>BODY</b>: The backup information to be set</p>
+        <p class="params">${campaign} = campaign ID</p>
+    
+        <a target="blank" class="endpoints post"><b>POST</b> /backup/characters/${<span>campaign</span>}/restore</a>
+        <p class="detail">Restore characters of a campaign using backup data</p>
+        <p class="params"><b>BODY</b>: The backup data (json)</p>
+        <p class="params">${campaign} = campaign ID</p>
     </section>
 </body>
 </html>

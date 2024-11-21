@@ -57,7 +57,8 @@ const getCharacter = async (req, res) => {
 }
 
 //? Adds or updates a single character to a given campaign 
-//? and returns it with an ID
+//? and returns it with an ID.
+//? If campaign doesn't exists, it creates it
 const addCharacter = async (req, res) => {
     const campaignId = req.params.campaign;
     const newItem = req.body;
@@ -75,7 +76,8 @@ const addCharacter = async (req, res) => {
     if(!campaign) {
         characters.push({
          campaignId: campaignId,
-         characters: []
+         characters: [],
+         backup: null
         });
  
         campaign = characters[characters.length - 1];
@@ -146,5 +148,5 @@ module.exports = {
     getCharacters, 
     getCharacter, 
     addCharacter, 
-    removeCharacter 
+    removeCharacter
 };

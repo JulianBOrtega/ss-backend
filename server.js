@@ -2,6 +2,7 @@ const indexRoutes = require('./routes/index');
 const campaignsRoutes = require('./routes/campaigns');
 const characterRoutes = require('./routes/characters');
 const chatRoutes = require('./routes/chats');
+const backupRoutes = require('./routes/backup');
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
@@ -39,6 +40,7 @@ app.use('/', indexRoutes);
 app.use('/campaigns', campaignsRoutes);
 app.use('/characters', characterRoutes);
 app.use('/chats', chatRoutes);
+app.use('/backup', backupRoutes);
 
 //? Start the server
 app.listen(port, () => {
