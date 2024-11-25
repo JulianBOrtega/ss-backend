@@ -10,18 +10,27 @@ const cors = require('cors');
 //* Init
 const app = express();
 const port = 3000;
+
+//? Cors handling
 const corsOptions = {
-  origin: '*', // Allow all origins
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  origin: '*', 
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 };
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); //? Pre-flight handling
+app.use((req, res, next) => { //? Debugging cors errors
+  console.log(`Request Origin: ${req.headers.origin}`);
+  console.log(`Request Headers: ${JSON.stringify(req.headers)}`);
+  next();
+});
 
 //? Serve files from html directory
 app.use(express.static(path.join(__dirname, 'html')));
 
 //? Middleware to parse JSON body
 app.use(express.json());
-app.use(cors(corsOptions));
+
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin","*");
   res.header(
