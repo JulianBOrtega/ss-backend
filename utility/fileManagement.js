@@ -1,20 +1,41 @@
-const fs = require('fs').promises; 
+const fs = require('fs').promises;
+const path = require('path');
 
-const folderPath = 'database/'
+const folderPath = 'database/';
+
+async function ensureFolderExists() {
+    try {
+        await fs.mkdir(folderPath, { recursive: true });
+    } catch (error) {
+        console.error('Error creating folder:', error);
+    }
+}
 
 async function readFileSync(filePath) {
     try {
-        const data = await fs.readFile(folderPath + filePath, 'utf8');
+        await ensureFolderExists();
+        const fullPath = path.join(folderPath, filePath);
+
+        const data = await fs.readFile(fullPath, 'utf8');
         return JSON.parse(data);
     } catch (error) {
-        console.log('Error fetching file:', error);
-        return {};
+        if (error.code === 'ENOENT') {
+            
+            console.log(`File not found: ${filePath}, creating it with empty object.`);
+            await writeFileSync(filePath, []); 
+            return []; 
+        } else {
+            console.error('Error reading file:', error);
+            throw error; 
+        }
     }
 }
 
 async function writeFileSync(filePath, data) {
     try {
-        await fs.writeFile(folderPath + filePath, JSON.stringify(data, null, 2));
+        await ensureFolderExists();
+        const fullPath = path.join(folderPath, filePath);
+        await fs.writeFile(fullPath, JSON.stringify(data, null, 2));
     } catch (error) {
         console.error('Error writing file:', error);
     }
@@ -27,5 +48,5 @@ function generateID() {
 module.exports = {
     readFileSync,
     writeFileSync,
-    generateID
+    generateID,
 };
