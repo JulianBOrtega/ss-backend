@@ -1,7 +1,7 @@
 const fs = require('fs').promises;
 const path = require('path');
 
-const folderPath = path.resolve('database'); // Use absolute path
+const folderPath = '/tmp/database'; // Use absolute path
 
 // Ensure the database folder exists
 async function ensureFolderExists() {
