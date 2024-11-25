@@ -18,6 +18,12 @@ const getCharacters = async (req, res) => {
     }
     
     const characters = await readFileSync('characters.json');
+    if(!characters) {
+        res.status(500).json({
+            error: 'ERROR at attempting to get characters.json. It is empty or doesnt exists.'
+        });
+        return;
+    };
     const campaign = characters.find(list => list.campaignId == campaignId);
 
     if (!campaign) {
@@ -41,6 +47,13 @@ const getCharacter = async (req, res) => {
     }
     
     const characters = await readFileSync('characters.json');
+    if(!characters) {
+        res.status(500).json({
+            error: 'ERROR at attempting to get characters.json. It is empty or doesnt exists.'
+        });
+        return;
+    };
+
     const campaign = characters.find(list => list.campaignId == campaignId);
     if(!campaign) {
         res.status(404).json({ error: 'Campaign not found'});
@@ -72,8 +85,17 @@ const addCharacter = async (req, res) => {
     }
     
     const characters = await readFileSync('characters.json');
+    if(!characters) {
+        res.status(500).json({
+            error: 'ERROR at attempting to get characters.json. It is empty or doesnt exists.'
+        });
+
+        return;
+    };
+
     let campaign = characters.find(list => list.campaignId == campaignId);
     if(!campaign) {
+        console.log('No campaing found. Pushing new one with current id.')
         characters.push({
          campaignId: campaignId,
          characters: [],
@@ -116,6 +138,14 @@ const removeCharacter = async (req, res) => {
     }
 
     let characters = await readFileSync('characters.json');
+    if(!characters) {
+        res.status(500).json({
+            error: 'ERROR at attempting to get characters.json. It is empty or doesnt exists.'
+        });
+
+        return;
+    };
+
     const campaign = characters.find(list => list.campaignId == campaignId);
 
     if(!campaignId && campaignId != 0) {
