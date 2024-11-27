@@ -1,6 +1,6 @@
 const fs = require('fs').promises; 
 
-const folderPath = 'database/'
+const folderPath = 'tmp/database/'
 
 async function readFileSync(filePath) {
     try {
