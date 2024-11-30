@@ -1,13 +1,14 @@
 const indexRoutes = require('./routes/index');
-const campaignsRoutes = require('./routes/campaigns');
 const characterRoutes = require('./routes/characters');
 const chatRoutes = require('./routes/chats');
 const backupRoutes = require('./routes/backup');
+const mongoose = require('mongoose');
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
+require('dotenv').config();
 
-//* Init
+//? Run server in port
 const app = express();
 const port = 3000;
 
@@ -46,12 +47,17 @@ app.use(function(req, res, next) {
 
 //? Routes
 app.use('/', indexRoutes);
-app.use('/campaigns', campaignsRoutes);
 app.use('/characters', characterRoutes);
 app.use('/chats', chatRoutes);
 app.use('/backup', backupRoutes);
 
-//? Start the server
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}/`);
-});
+//? Database
+const dbUri = process.env.MONGO_URI;
+mongoose.connect(dbUri).then((r) => {
+  console.log('DB Connected')
+  
+  //? Enable listeners (to allow users to use this webservice)
+  app.listen(port, () => {
+    console.log(`Server running at port ${port}`);
+  });
+}).catch(err => console.log('Error at connecting to DB', err));
