@@ -12,26 +12,6 @@
     <img src="img/ss-banner-nobg.png" alt="ss-banner">
     <h1>SS Extension Backend</h1>
     <p>Simple as fuck trash because I don't have time for backend</p>
-    
-    <br>
-
-    <h2 class="endpointTitle">Campaigns</h2> <hr>
-    <section>
-        <a target="blank" href="/campaigns" class="endpoints get"><b>GET</b> /campaigns</a>
-        <p class="detail">Get all campaigns</p>
-
-        <a target="blank" class="endpoints get"><b>GET</b> /campaigns/${<span>campaign</span>}</a>
-        <p class="detail">Get a single campaign by ID</p>
-        <p class="params">${campaign} = campaign ID</p>
-        
-        <a target="blank" class="endpoints post"><b>POST</b> /campaigns</a>
-        <p class="detail">Add or updates a campaign. If campaign already contains an ID, it updates the campaign with that ID. Otherwise, it generates one and returns the campaign with it</p>
-        <p class="params"><b>BODY</b>: Campaign to be added/updated. Interface TBD</p>
-        
-        <a target="blank" class="endpoints delete"><b>DELETE</b> /campaigns?campaignId=${<span class="obligatory">obligatory</span>}</a>
-        <p class="detail">Deletes all the campaigns with that ID.</p>
-        <p class="params">${campaignId} = campaign ID</p>
-    </section>
 
     <br>
 
@@ -50,12 +30,12 @@
         <p class="params">${character} = The ID of the character you want to get</p>
         
         <a target="blank" class="endpoints post"><b>POST</b> /characters/${<span>campaign</span>}</a>
-        <p class="detail">Add or updates a character. If character already contains an ID, it updates the character with that ID. Otherwise, it generates one and returns the character with it</p>
-        <p class="params"><b>BODY</b>: Character to be added/updated. Interface TBD</p>
+        <p class="detail">Add or updates a character. If character already contains an ID, it updates the character with that ID. Otherwise, it generates one and returns the character with it.</p>
+        <p class="params"><b>BODY</b>: Character to be added/updated</p>
         <p class="params">${campaign} = campaign ID that will contain the character</p>
         
-        <a target="blank" class="endpoints delete"><b>DELETE</b> /characters?campaignId=${<span class="optional">optional</span>}&characterId=${<span class="obligatory">obligatory</span>}</a>
-        <p class="detail">Deletes a character from a campaign. If a campaignId is not introduced, then it deletes all characters with that ID from every campaign</p>
+        <a target="blank" class="endpoints delete"><b>DELETE</b> /characters?campaignId=${<span class="obligatory">obligatory</span>}&characterId=${<span class="obligatory">obligatory</span>}</a>
+        <p class="detail">Deletes a character from a campaign.</p>
         <p class="params">${campaignId} = campaign ID that contains the character</p>
         <p class="params">${characterId} = The ID of the character you want to delete</p>
     </section>
@@ -73,11 +53,11 @@
         
         <a target="blank" class="endpoints post"><b>POST</b> /chats/${<span>campaign</span>}</a>
         <p class="detail">Add or updates a chat. If chat already contains an ID, it updates the chat with that ID. Otherwise, it generates one and returns the chat with it</p>
-        <p class="params"><b>BODY</b>: chat to be added/updated. Interface TBD</p>
+        <p class="params"><b>BODY</b>: chat to be added/updated</p>
         <p class="params">${campaign} = campaign ID that will contain the chat</p>
         
-        <a target="blank" class="endpoints delete"><b>DELETE</b> /chats?campaignId=${<span class="optional">optional</span>}&chatId=${<span class="obligatory">obligatory</span>}</a>
-        <p class="detail">Deletes a chat from a campaign. If a campaignId is not introduced, then it deletes all chats with that ID from every campaign</p>
+        <a target="blank" class="endpoints delete"><b>DELETE</b> /chats?campaignId=${<span class="obligatory">obligatory</span>}&chatId=${<span class="obligatory">obligatory</span>}</a>
+        <p class="detail">Deletes a chat from a campaign.</p>
         <p class="params">${campaignId} = campaign ID that contains the chat</p>
         <p class="params">${chatId} = The ID of the chat you want to delete</p>
 

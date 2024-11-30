@@ -1,12 +1,18 @@
-const { readFileSync, writeFileSync, generateID } = require('../utility/fileManagement');
+const { generateID } = require('../utility/misc');
+const Character = require('../database/models/character');
 
-//? Gets all characters
+//* Gets all characters
 const getAllCharacters = async (req, res) => {
-    const items = await readFileSync('characters.json');
-    res.json(items);
+    const characters = await Character.find();
+    
+    if(characters) {
+        res.status(200).send(characters);
+    } else {
+        res.status(500).send('DB ERROR - At fetching all characters');
+    }
 };
 
-//? Gets all characters from a given campaign
+//* Gets all characters from a given campaign
 const getCharacters = async (req, res) => {
     const campaignId = req.params.campaign;
     
@@ -17,23 +23,19 @@ const getCharacters = async (req, res) => {
         return;
     }
     
-    const characters = await readFileSync('characters.json');
-    if(!characters) {
-        res.status(500).json({
-            error: 'ERROR at attempting to get characters.json. It is empty or doesnt exists.'
-        });
-        return;
-    };
-    const campaign = characters.find(list => list.campaignId == campaignId);
+    const filter = { campaignId: campaignId };
+    const search = await Character.find(filter).exec();
 
-    if (!campaign) {
-        res.json([]);
+    if(search) {
+        res.status(200).send(search);
     } else {
-        res.json(campaign.characters);
+        res.status(500).json({
+            error: 'DB ERROR - At fetching characters from campaign'
+        });
     }
 };
 
-//? Gets a single character from a given campaign
+//* Gets a single character from a given campaign
 const getCharacter = async (req, res) => {
     const campaignId = req.params.campaign;
     const characterId = req.params.character;
@@ -45,33 +47,21 @@ const getCharacter = async (req, res) => {
 
         return;
     }
-    
-    const characters = await readFileSync('characters.json');
-    if(!characters) {
-        res.status(500).json({
-            error: 'ERROR at attempting to get characters.json. It is empty or doesnt exists.'
-        });
-        return;
-    };
 
-    const campaign = characters.find(list => list.campaignId == campaignId);
-    if(!campaign) {
-        res.status(404).json({ error: 'Campaign not found'});
-        return;
-    }
+    const filter = { id: characterId, campaignId: campaignId };
+    const search = await Character.findOne(filter).exec();
 
-    const item = campaign.characters.find(camp => camp.id == characterId);
-
-    if (!item) {
-        res.status(404).json({ error: 'Characters not found in campaign' });
+    if(search) {
+        res.status(200).send(search);
     } else {
-        res.json(item);
+        res.status(500).json({
+            error: 'DB ERROR - At fetching character with characterId/campaignId'
+        })
     }
 }
 
-//? Adds or updates a single character to a given campaign 
-//? and returns it with an ID.
-//? If campaign doesn't exists, it creates it
+//* Adds or updates a single character to a given campaign 
+//* and returns it with an ID.
 const addCharacter = async (req, res) => {
     const campaignId = req.params.campaign;
     const newItem = req.body;
@@ -84,93 +74,57 @@ const addCharacter = async (req, res) => {
         return;
     }
     
-    const characters = await readFileSync('characters.json');
-    if(!characters) {
-        res.status(500).json({
-            error: 'ERROR at attempting to get characters.json. It is empty or doesnt exists.'
-        });
+    if(newItem.id) {
+        const filter = { id: newItem.id, campaignId: campaignId };
+        const search = await Character.findOne(filter).exec();
 
-        return;
-    };
-
-    let campaign = characters.find(list => list.campaignId == campaignId);
-    if(!campaign) {
-        console.log('No campaing found. Pushing new one with current id.')
-        characters.push({
-         campaignId: campaignId,
-         characters: [],
-         backup: null
-        });
- 
-        campaign = characters[characters.length - 1];
-     };
-    
-    let copyIndex = -1;
-    if(newItem.id || newItem.id == 0) {
-        copyIndex = campaign.characters.findIndex(
-            chara => chara.id == newItem.id
-        );
+        if(search) {
+            Object.assign(search, newItem);
+            const result = await search.save();
+            res.status(200).send(result);
+        } else {
+            res.status(500).json({
+                error: 'DB ERROR - At updating character'
+            })
+        }
     } else {
         newItem.id = generateID();
-    };
-    
-    if (copyIndex != -1) {
-        campaign.characters[copyIndex] = newItem;
-    } else {
-        campaign.characters.push(newItem);
-    }
+        newItem.campaignId = campaignId;
+        const newChara = new Character(newItem);
+        const result = await newChara.save();
 
-    await writeFileSync('characters.json', characters);
-    res.status(201).json(newItem);
+        if(result) {
+            res.status(200).send(result);
+        } else {
+            res.status(500).json({
+                error: 'DB ERROR - At creating new character and adding it to DB'
+            })
+        }
+    }
 };
 
-//? Removes all characters with a given id from all lists
-//? or a given campaign
+//* Removes all characters with a given id from a campaign
 const removeCharacter = async (req, res) => {
     const { campaignId, characterId } = req.query;
-
-    if (!characterId && characterId != 0) {
+    
+    if ((!characterId && characterId != 0) || (!campaignId && campaignId != 0)) {
         res.status(400).json({
-            error: 'Introduce a character ID'
+            error: 'Introduce a campaign and character ID'
         });
         
         return;
     }
 
-    let characters = await readFileSync('characters.json');
-    if(!characters) {
-        res.status(500).json({
-            error: 'ERROR at attempting to get characters.json. It is empty or doesnt exists.'
-        });
+    const filter = { id: characterId, campaignId: campaignId };
+    const removal = await Character.deleteOne(filter).exec();
 
-        return;
-    };
-
-    const campaign = characters.find(list => list.campaignId == campaignId);
-
-    if(!campaignId && campaignId != 0) {
-        characters = characters.map(camp => {
-            return {
-                ...camp,
-                characters: camp.characters.filter(c => c.id != characterId)
-            };
-        });
+    if(removal) {
+        res.status(200).send('Character removed');
     } else {
-        if(!campaign) {
-            res.status(404).json({
-                error: 'Cannot find campaign with the introduced ID'
-            });
-            
-            return;
-        }
-
-        campaign.characters = campaign.characters.filter(
-            c => c.id != characterId
-        );
+        res.status(500).json({
+            error: 'DB Error - At removing character'
+        });
     }
-
-    await writeFileSync('characters.json', characters);
-    res.status(200).json({msg: 'Success'});
 }
 
 module.exports = { 

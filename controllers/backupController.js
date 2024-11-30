@@ -1,5 +1,7 @@
-const { readFileSync, writeFileSync } = require('../utility/fileManagement');
+const Character = require('../database/models/character');
+const Backup = require('../database/models/backup');
 
+//* Get backup info for characters
 const getCharacterBackup = async (req, res) => {
     const campaignId = req.params.campaign;
     if (!campaignId) {
@@ -10,19 +12,19 @@ const getCharacterBackup = async (req, res) => {
         return;
     }
 
-    const characters = await readFileSync('characters.json');
-    const campaign = characters.find(list => list.campaignId == campaignId);
+    const filter = { campaignId: campaignId, backupType: 'characters' };
+    const search = await Backup.find(filter).exec();
 
-    if(!campaign) {
-        res.status(404).json({
-            error: 'Campaign not found'
-        })
+    if(search) {
+        res.status(200).send(search);
     } else {
-        res.json(campaign.backup);
-    }
+        res.status(500).json({
+            error: 'DB ERROR - At fetching character backup data'
+        });
+    };
 }
 
-
+//* Set backup info for characters
 const setCharacterBackup = async (req, res) => {
     const campaignId = req.params.campaign;
     const newItem = req.body;
@@ -33,27 +35,45 @@ const setCharacterBackup = async (req, res) => {
         });
 
         return;
+    } else if (!newItem.id) {
+        res.status(400).json({
+            error: "Backup data doesn't contains an ID"
+        });
+
+        return;
     }
 
-    const characters = await readFileSync('characters.json');
-    const campaignIndex = characters.findIndex(list => list.campaignId == campaignId);
+    const filter = { campaignId: campaignId, backupType: 'characters' };
+    const search = await Backup.findOne(filter).exec();
 
-    if(campaignIndex == -1) {
-        res.status(404).json({
-            error: 'Campaign not found'
-        })
+    if(search) {
+        Object.assign(search, newItem);
+        const result = await search.save();
+        res.status(200).send(result);
     } else {
-        characters[campaignIndex].backup = newItem;
-        await writeFileSync('characters.json', characters);
-        res.status(201).json(newItem);
+        const newBackup = new Backup({
+            ...newItem,
+            backupType: 'characters',
+            campaignId: campaignId
+        });
+        const result = await newBackup.save();
+
+        if(result) {
+            res.status(200).send(result);
+        } else {
+            res.status(500).json({
+                error: 'DB ERROR - At creating backup info for '
+            })
+        }
     }
 }
 
+//* Restore character data for characters (receives backup data - no backup info)
 const restoreCharacters = async (req, res) => {
     const campaignId = req.params.campaign;
-    const newItem = req.body;
+    let newCollection = req.body;
 
-    if (!campaignId || !newItem) {
+    if (!campaignId || !newCollection) {
         res.status(400).json({
             error: 'Introduce a campaign ID and the backup data to restore'
         });
@@ -61,18 +81,27 @@ const restoreCharacters = async (req, res) => {
         return;
     }
 
-    const characters = await readFileSync('characters.json');
-    const campaignIndex = characters.findIndex(list => list.campaignId == campaignId);
+    //? Avoiding random characters from other campaigns
+    newCollection = newCollection.filter(c => c.campaignId == campaignId);
 
-    if(campaignIndex == -1) {
-        res.status(404).json({
-            error: 'Campaign not found'
-        })
-    } else {
-        characters[campaignIndex].characters = newItem;
-        await writeFileSync('characters.json', characters);
-        res.status(201).json(newItem);
+    const filter = { campaignId: campaignId };
+    const removal = await Character.deleteMany(filter);
+    const addition = await Character.insertMany(newCollection);
+
+    if(!removal || !addition) {
+        res.status(500).json({
+            error: 'DB ERROR - Something went wrong in an attempt to restore backup data'
+        });
+        
+        return;
     }
+    
+    const removalAmount = removal?.deletedCount;
+    const additionAmount = addition?.length;
+
+    res.status(200).send(
+        `${removalAmount} characters were deleted, and ${additionAmount} were added.`
+    );
 }
 
 module.exports = { 
