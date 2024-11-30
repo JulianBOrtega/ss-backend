@@ -52,3 +52,5 @@ mongoose.connect(dbUri).then((r) => {
     console.log(`Server running at port ${port}`);
   });
 }).catch(err => console.log('Error at connecting to DB', err));
+
+export default app;
